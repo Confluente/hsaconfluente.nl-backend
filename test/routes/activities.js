@@ -43,7 +43,7 @@ describe("routes/activities", function () {
 
   describe("GET /activities", function () {
 
-    it("lists all activities", function () {
+    it("lists all upcoming activities, sorted", function () {
       return testData.nobodyUserAgent
       .get("/api/activities")
       .expect('Content-Type', /json/)
@@ -58,6 +58,11 @@ describe("routes/activities", function () {
           assert(activity.description_html.includes("<p>"));
           assert.equal(typeof activity.Organizer, "object");
           assert(typeof activity.canSubscribe === "boolean");
+
+          assert(typeof activity.startTime === "string");
+          assert(!isNaN(Date.parse(activity.startTime)));
+          assert(Date.parse(activity.startTime) > (new Date() - (3600 * 1000 * 24)));
+
           assert(activity.approved);
         });
       });

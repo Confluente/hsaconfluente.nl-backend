@@ -16,6 +16,11 @@ router.route("/")
     order: [
       ["startTime", "ASC"]
     ],
+    where: {
+      startTime: {
+        gt: new Date() - (3600 * 1000 * 24)
+      }
+    },
     include: [{
       model: Group,
       as: "Organizer",

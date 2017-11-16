@@ -52,7 +52,8 @@ admin.passwordHash = authHelper.getPasswordHashSync(admin.password, admin.passwo
 var testActivity = {
   name: "Website testing",
   description: "User and unit testing of the website",
-  approved: true
+  approved: true,
+  startTime: Date.parse("January 4, 2016")
 };
 
 var unapprovedActivity = {
