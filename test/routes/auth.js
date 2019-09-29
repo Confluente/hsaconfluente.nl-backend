@@ -1,10 +1,8 @@
-var request = require("supertest");
 var assert = require("assert");
 var Q = require("q");
 
 var testData = require("../testData");
 var authenticate = require("../tester").authenticate;
-var app = require("../../expressServer");
 
 describe("routes/auth", function () {
 
@@ -12,10 +10,8 @@ describe("routes/auth", function () {
     //return User.truncate();
   });
 
-  var agent = request.agent(app);
-
-  afterEach(function () {
-    agent = request.agent(app);
+  beforeEach(function () {
+    agent = testData.getAgent();
   });
 
 

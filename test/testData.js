@@ -17,10 +17,17 @@ var testUser = {
 };
 testUser.passwordHash = authHelper.getPasswordHashSync(testUser.password, testUser.passwordSalt);
 
-var testUserAgent = request.agent(app);
-var activeUserAgent = request.agent(app);
-var adminUserAgent = request.agent(app);
-var nobodyUserAgent = request.agent(app);
+
+function getAgent() {
+  return request.agent(app).use((a)=> {
+  	a.set("X-Requested-With", "XMLHttpRequest");
+  })
+}
+
+var testUserAgent = getAgent();
+var activeUserAgent = getAgent();
+var adminUserAgent = getAgent();
+var nobodyUserAgent = getAgent();
 
 var membersGroup = {
   displayName: "Members",
@@ -115,5 +122,6 @@ module.exports = {
   testUserAgent: testUserAgent,
   activeUserAgent: activeUserAgent,
   adminUserAgent: adminUserAgent,
-  nobodyUserAgent: nobodyUserAgent
+  nobodyUserAgent: nobodyUserAgent,
+  getAgent: getAgent,
 };
